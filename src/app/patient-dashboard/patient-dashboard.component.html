@@ -21,7 +21,7 @@
     </ng-container>
     <ng-template #dataContent>
       <ng-container *ngIf="error$ | async as error; else patientList">
-        <div>{{ error }}</div>
+        <div>Unexpected error loading patients - please try again.</div>
       </ng-container>
       <ng-template #patientList>
         <ul>
