@@ -1,0 +1,60 @@
+:host {
+    display: block;
+    padding: 16px;
+  }
+  
+  mat-card {
+    margin-bottom: 16px;
+  }
+  
+  mat-card-title {
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 16px;
+  }
+  
+  mat-card-content p {
+    margin: 8px 0;
+  }
+  
+  mat-form-field {
+    width: 100%;
+    margin-bottom: 16px;
+  }
+  
+  mat-list-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  mat-list-item div[mat-line] {
+    display: block;
+  }
+  
+  mat-list-item small {
+    color: rgba(0, 0, 0, 0.54);
+  }
+  
+  mat-list-item:last-child {
+    margin-bottom: 16px;
+  }
+  
+  .error {
+    color: red;
+    font-weight: bold;
+    margin-bottom: 16px;
+  }
+  
+  .full-width {
+    width: 100%;
+  }
+  
+  button {
+    margin-top: 16px;
+  }
+  
+  button + button {
+    margin-left: 8px;
+  }
+  

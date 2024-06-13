@@ -1,0 +1,35 @@
+<mat-card *ngIf="patient$ | async as patient">
+  <mat-card-title>{{ patient.name }}</mat-card-title>
+  <mat-card-content>
+    <p><strong>Date of Birth:</strong> {{ patient.dateOfBirth | date }}</p>
+    <p><strong>Contact Info:</strong> {{ patient.contactInfo }}</p>
+    <p><strong>Reason for Referral:</strong> {{ patient.reasonForReferral }}</p>
+    <p><strong>Referral Status:</strong>
+      <mat-form-field appearance="fill">
+        <mat-label>Referral Status</mat-label>
+        <mat-select [(ngModel)]="patient.referralStatus">
+          <mat-option *ngFor="let status of referralStatuses" [value]="status">{{ status }}</mat-option>
+        </mat-select>
+      </mat-form-field>
+    </p>
+
+    <h3>Notes</h3>
+    <mat-list>
+      <mat-list-item *ngFor="let note of sortedNotes(patient.patientNotes)">
+        <div mat-line>{{ note.content }}</div>
+        <div mat-line><small>{{ note.createdAt | date:'short' }}</small></div>
+      </mat-list-item>
+    </mat-list>
+
+    <mat-form-field appearance="fill" class="full-width">
+      <mat-label>New Note</mat-label>
+      <textarea matInput [(ngModel)]="newNoteContent" name="noteContent"></textarea>
+    </mat-form-field>
+
+    <button mat-raised-button color="primary" (click)="submit(patient)">Submit</button>
+    
+    <div *ngIf="error" class="error">
+      {{ error }}
+    </div>
+  </mat-card-content>
+</mat-card>
