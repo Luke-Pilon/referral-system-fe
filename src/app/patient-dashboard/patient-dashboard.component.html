@@ -1,0 +1,35 @@
+<mat-card>
+  <mat-card-title>Patients Dashboard</mat-card-title>
+  <mat-card-content>
+    <form [formGroup]="filterForm" class="filter-form">
+      <mat-form-field appearance="fill">
+        <mat-label>Name</mat-label>
+        <input matInput formControlName="name" placeholder="Search by name" />
+      </mat-form-field>
+
+      <mat-form-field appearance="fill">
+        <mat-label>Referral Status</mat-label>
+        <mat-select formControlName="referralStatus" placeholder="Select status">
+          <mat-option value="">All</mat-option>
+          <mat-option *ngFor="let status of referralStatuses" [value]="status">{{ status }}</mat-option>
+        </mat-select>
+      </mat-form-field>
+    </form>
+
+    <ng-container *ngIf="loading$ | async; else dataContent">
+      <div>Loading...</div>
+    </ng-container>
+    <ng-template #dataContent>
+      <ng-container *ngIf="error$ | async as error; else patientList">
+        <div>{{ error }}</div>
+      </ng-container>
+      <ng-template #patientList>
+        <ul>
+          <li *ngFor="let patient of filteredPatientData$ | async">
+            <app-patient [patient]="patient" (delete)="onDelete($event)"></app-patient>
+          </li>
+        </ul>
+      </ng-template>
+    </ng-template>
+  </mat-card-content>
+</mat-card>

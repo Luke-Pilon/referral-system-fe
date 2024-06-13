@@ -1,0 +1,19 @@
+.filter-form {
+    display: flex;
+    gap: 16px;
+    margin-bottom: 16px;
+  }
+  
+  mat-card {
+    margin: 16px;
+  }
+  
+  ul {
+    list-style-type: none;
+    padding: 0;
+  }
+  
+  li {
+    margin-bottom: 8px;
+  }
+  
