@@ -1,0 +1,75 @@
+<form [formGroup]="patientForm" (ngSubmit)="onSubmit()">
+  <mat-card>
+    <mat-card-title>Referral Form</mat-card-title>
+    <mat-card-content>
+      
+      <mat-form-field appearance="fill">
+        <mat-label for="name">Name</mat-label>
+        <input matInput id="name" formControlName="name" />
+        <mat-error *ngIf="name?.invalid && (name?.dirty || name?.touched)">
+          <small *ngIf="name?.errors?.['required']">Name is required.</small>
+          <small *ngIf="name?.errors?.['minlength']">Name must be at least 1 character long.</small>
+          <small *ngIf="name?.errors?.['maxlength']">Name cannot exceed 255 characters.</small>
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field appearance="fill">
+        <mat-label for="contactInfo">Contact Info</mat-label>
+        <input matInput id="contactInfo" formControlName="contactInfo" appTelephoneInput />
+        <mat-error *ngIf="contactInfo?.invalid && (contactInfo?.dirty || contactInfo?.touched)">
+          <small *ngIf="contactInfo?.errors?.['required']">Contact Info is required.</small>
+          <small *ngIf="contactInfo?.errors?.['pattern']">Contact Info must be exactly 10 digits formatted as (111)111-1111.</small>
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field appearance="fill">
+        <mat-label for="dateOfBirth">Date of Birth</mat-label>
+        <input matInput [matDatepicker]="picker" id="dateOfBirth" formControlName="dateOfBirth" placeholder="YYYY-MM-DD" readonly />
+        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-datepicker #picker></mat-datepicker>
+        <mat-error *ngIf="dateOfBirth?.invalid && (dateOfBirth?.dirty || dateOfBirth?.touched)">
+          <small *ngIf="dateOfBirth?.errors?.['required']">Date of Birth is required.</small>
+        </mat-error>
+      </mat-form-field>
+
+
+
+      <mat-form-field appearance="fill">
+        <mat-label for="reasonForReferral">Reason for Referral</mat-label>
+        <mat-select id="reasonForReferral" formControlName="reasonForReferral">
+          <mat-option *ngFor="let reason of referralReasons" [value]="reason">{{ reason }}</mat-option>
+        </mat-select>
+        <mat-error *ngIf="reasonForReferral?.invalid && (reasonForReferral?.dirty || reasonForReferral?.touched)">
+          <small *ngIf="reasonForReferral?.errors?.['required']">Reason for Referral is required.</small>
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field appearance="fill" *ngIf="reasonForReferral?.value === 'Other'">
+        <mat-label for="customReason">Custom Reason</mat-label>
+        <input matInput id="customReason" formControlName="customReason" />
+        <mat-error *ngIf="customReason?.invalid && (customReason?.dirty || customReason?.touched)">
+          <small *ngIf="customReason?.errors?.['required']">Custom Reason is required.</small>
+          <small *ngIf="customReason?.errors?.['minlength']">Custom Reason must be at least 1 character long.</small>
+          <small *ngIf="customReason?.errors?.['maxlength']">Custom Reason cannot exceed 255 characters.</small>
+        </mat-error>
+      </mat-form-field>
+
+
+      <mat-form-field appearance="fill">
+        <mat-label for="referralStatus">Referral Status</mat-label>
+        <mat-select id="referralStatus" formControlName="referralStatus">
+          <mat-option *ngFor="let status of referralStatuses" [value]="status">{{ status }}</mat-option>
+        </mat-select>
+        <mat-error *ngIf="referralStatus?.invalid && (referralStatus?.dirty || referralStatus?.touched)">
+          <small *ngIf="referralStatus?.errors?.['required']">Referral Status is required.</small>
+        </mat-error>
+      </mat-form-field>
+
+      <button mat-raised-button color="primary" type="submit" [disabled]="patientForm.invalid">Submit</button>
+      
+      <div *ngIf="error$ | async as error" class="error-message">
+        An error occurred: {{ error }}
+      </div>
+    </mat-card-content>
+  </mat-card>
+</form>
